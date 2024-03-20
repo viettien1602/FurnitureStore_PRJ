@@ -1,0 +1,383 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 20, 2024, 1:56:05 PM
+    Author     : ADMIN
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+ :root {
+    --text-01: #45413E;
+    --light-01: #F9F9F9;
+    --light-02: #FFFFFF;
+    --brand-01: #DB7F67;
+    --brand-02: #F4CFC6;
+    --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
+    --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    --hover-timing: all 0.2s ease;
+}
+
+body {
+    display: flex;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 110px;
+    height: 100vh;
+    padding: 0 1rem;
+    color: var(--light-01);
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background: #F4CFC6;
+}
+
+
+/* dong mo navbar */
+
+.sidebar:hover {
+    width: 250px;
+    transition: 0.5s;
+}
+
+.menu i,
+.menu span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.logo {
+    height: 80px;
+    padding: 16px;
+}
+
+.menu {
+    height: 88%;
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 0.5rem;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu li:hover,
+.active {
+    background: var(--brand-01);
+}
+
+.menu a {
+    color: #45413E;
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.menu a span {
+    overflow: hidden;
+}
+
+.menu a i {
+    font-size: 1.2rem;
+}
+
+
+/*Main body*/
+
+.main-content {
+    position: relative;
+    background: #F9F9F9;
+    width: 100%;
+    padding: 1rem;
+}
+
+.header-wrapper img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #F4CFC6;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+}
+
+.header-title {
+    color: palevioletred;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: rem;
+}
+
+.search-box {
+    background: #F9F9F9;
+    border-radius: 15px;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+}
+
+.search-box input {
+    background: transparent;
+    padding: 8px;
+    color: #45413E;
+}
+
+.search-box i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.search-box i:hover {
+    transform: scale(1.2);
+}
+
+
+/* card container */
+
+.card-container {
+    background: #eeeee6;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.main-title {
+    color: var(--text-01);
+    padding-bottom: 10px;
+}
+
+.payment-card {
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 276px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5s ease-in-out;
+}
+
+.payment-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.amount {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: 200;
+    color: #45413E;
+}
+
+.title1 {
+    font-size: 12px;
+    font-weight: 200;
+    color: #F9F9F9;
+}
+
+.amount-value {
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color: #45413E;
+}
+
+.amount-value1 {
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color: #F9F9F9;
+}
+
+.icon1 {
+    color: #543C44;
+    padding: 1rem;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.icon2 {
+    color: #F6AE6C;
+    padding: 1rem;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.icon3 {
+    color: cadetblue;
+    padding: 1rem;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.icon4 {
+    color: #C79896;
+    padding: 1rem;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.card-detail {
+    font-size: 16px;
+    color: #45413E;
+    letter-spacing: 2px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card-detail1 {
+    font-size: 16px;
+    color: #45413E;
+    letter-spacing: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #F9F9F9;
+}
+
+
+/* color CSS */
+
+.light-brown {
+    background: linear-gradient(45deg, #543C44 0%, #976C5B 100%);
+}
+
+.light-yellow {
+    background: linear-gradient(45deg, #F6AE6C 0%, #ECBD73 100%);
+}
+
+.light-green {
+    background: linear-gradient(45deg, #45828C 0%, #A7D4D8 100%);
+}
+
+.light-pink {
+    background: linear-gradient(45deg, #C79896 0%, #DAB7B6 100%);
+}
+
+.circle-box {
+    background: #eeeee6;
+}
+
+
+/* table */
+
+.tabular-wrapper {
+    background: #eeeee6;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.table-container {
+    width: 100%;
+}
+
+.table-container table {
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #5A9A8E;
+    color: #F9F9F9;
+}
+
+th {
+    padding: 15px;
+    text-align: center;
+}
+
+tbody {
+    background: #ECBD73;
+}
+
+td {
+    padding: 2px;
+    font-size: 14px;
+    color: var(--text-01);
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: #EDDAA9;
+}
+
+.Id {
+    padding-left: 25px;
+}
+
+.table-container button {
+    background: none;
+    cursor: pointer;
+}
+
+.table-container .bxs-edit {
+    color: #5A9A8E;
+    font-size: 24px;
+}
+
+.table-container .bx-trash {
+    color: var(--brand-01);
+    font-size: 24px;
+}

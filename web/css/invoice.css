@@ -1,0 +1,429 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 20, 2024, 1:46:18 PM
+    Author     : ADMIN
+*/
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+        /* RESET STYLES */
+        
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+        
+        table {
+            border-collapse: collapse !important;
+        }
+        
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            font-family: 'Poppins', sans-serif;
+            color: #45413E;
+        }
+        /* iOS BLUE LINKS */
+        
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+        /* MEDIA QUERIES */
+        
+        @media screen and (max-width: 480px) {
+            .mobile-hide {
+                display: none !important;
+            }
+            .mobile-center {
+                text-align: center !important;
+            }
+            .align-center {
+                max-width: initial !important;
+            }
+            h1 {
+                display: inline-block;
+                margin-right: auto !important;
+                margin-left: auto !important;
+            }
+        }
+        
+        @media screen and (min-width: 480px) {
+            .mw-50 {
+                max-width: 50%;
+            }
+        }
+        /* ANDROID CENTER FIX */
+        
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+        
+         :root {
+            --purple: #5a3aa5;
+            --pink: #b91bab;
+            --blue: #2cbaef;
+            --green: #23c467;
+        }
+        
+        .container {
+            background-color: #F9F9F9;
+        }
+        
+        .table {
+            border: 0;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .invoice {
+            padding: 0 15px 20px 15px;
+            background-color: #ffffff;
+        }
+        
+        .invoice table {
+            border: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .thanks {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            padding-top: 25px;
+        }
+        
+        .thanks img {
+            display: block;
+            border: 0px;
+            width: 125px;
+            height: 120px;
+        }
+        
+        .thanks h2 {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 36px;
+            color: #333333;
+            margin: 0;
+        }
+        
+        .thanks-note {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            padding-top: 10px;
+        }
+        
+        .thanks-note p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            color: #777777;
+            padding: 0 30px;
+        }
+        
+        .line-items {
+            padding-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border: 0;
+        }
+        
+        .invoice-line {
+            border-radius: 20px;
+            font-weight: 800;
+        }
+        
+        .label1 {
+            align-items: left;
+            font-size: 16px;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 14px 0 0 14px;
+            padding-left: 25px;
+            width: 75%;
+        }
+        
+        .content-line1 {
+            font-size: 16px;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 0 14px 14px 0;
+            padding-right: 25px;
+            width: 25%;
+        }
+        
+        .label-name,
+        .quantity,
+        .price,
+        .total-cost {
+            font-size: 16px;
+            line-height: 24px;
+            padding: 10px;
+        }
+        
+        .price {
+            padding-left: 80px;
+        }
+        
+        .label-name {
+            padding-left: 25px;
+        }
+        
+        .total-cost {
+            padding-right: 25px;
+        }
+        
+        .label2 {
+            align-items: left;
+            font-size: 16px;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 14px 0 0 14px;
+            padding-left: 25px;
+            width: 75%;
+        }
+        
+        .content-line2 {
+            font-size: 16px;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 0 14px 14px 0;
+            padding-right: 25px;
+            width: 25%;
+        }
+        
+        .label-total {
+            width: 75%;
+            align-items: left;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 14px 0 0 14px;
+            border-top: 2px solid #eeeeee;
+            border-bottom: 2px solid #eeeeee;
+            padding-left: 25px;
+        }
+        
+        .content-total {
+            width: 25%;
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 24px;
+            padding: 10px;
+            border-radius: 0 14px 14px 0;
+            border-top: 2px solid #eeeeee;
+            border-bottom: 2px solid #eeeeee;
+            padding-right: 25px;
+        }
+        
+        .total {
+            padding-top: 5px;
+            align-items: left;
+        }
+        
+        .row1 {
+            padding: 0 15px 5px 15px;
+            background-color: #ffffff;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .full-table {
+            border: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .mw-50 {
+            display: inline-block;
+            padding-bottom: 15px;
+            vertical-align: top;
+            width: 100%;
+        }
+        
+        .table1,
+        .footer table {
+            border: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .table1 td,
+        .table2 td {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            padding: 0 10px;
+        }
+        
+        .table2 {
+            border: 0;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .notification {
+            padding: 35px;
+            background-color: #EDDAA9;
+        }
+        
+        .table-note {
+            border: 0;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .note-content {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            padding-top: 45px;
+            padding-left: 20px;
+        }
+        
+        .note-content h2 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 30px;
+            color: #45413E;
+            margin: 0;
+        }
+        
+        .button-sale {
+            padding: 25px 250px;
+        }
+        
+        .button-sale button:hover {
+            transition: all 0.2s ease;
+            box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .button-sale a {
+            text-decoration: none;
+        }
+        
+        .button-sale a:hover {
+            color: #F9F9F9;
+        }
+        
+        .button-sale a:visited {
+            color: #F9F9F9;
+        }
+        
+        .button-sale a:link {
+            color: #F9F9F9;
+        }
+        
+        .button-sale a:active {
+            color: #F9F9F9;
+        }
+        
+        .button-sale table {
+            border: 0;
+        }
+        
+        .button-sale button {
+            padding: 15px 50px;
+            color: #F9F9F9;
+            background-color: #45413E;
+            cursor: pointer;
+            border: none;
+            border-radius: 45px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .button-sale td {
+            border-radius: 45px;
+            background-color: #EDDAA9;
+        }
+        
+        .footer {
+            padding: 35px 35px 15px;
+            background-color: #ffffff;
+        }
+        
+        .name {
+            line-height: 0;
+        }
+        
+        .name h3 {
+            width: 200px;
+            display: block;
+            border: 0px;
+        }
+        
+        .name img {
+            width: 100%;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .address {
+            color: #ffffff;
+            font-family: Open Sans, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+        }
+        
+        .address p {
+            color: #666666;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+            margin-bottom: 0;
+        }
+        
+        .email {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+            font-family: Open Sans, Helvetica, Arial, sans-serif;
+        }
+        
+        .email p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            color: #666666;
+            padding: 0 25px;
+            max-width: 400px;
+        }
+        
+        .email span {
+            color: #888888;
+            display: block;
+            font-size: 90%;
+            font-weight: 600;
+            padding-top: 15px;
+        }

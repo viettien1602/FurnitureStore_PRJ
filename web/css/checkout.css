@@ -1,0 +1,170 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 20, 2024, 1:42:09 PM
+    Author     : ADMIN
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.container {
+    width: 1200px;
+    margin: auto;
+    max-width: 90%;
+    transition: transform 1s;
+}
+
+.checkoutLayout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    padding: 20px;
+}
+
+.checkoutLayout .right {
+    background-color: #F4CFC6;
+    border-radius: 20px;
+    padding: 40px;
+    color: #45413E;
+}
+
+.checkoutLayout .list img {
+    height: 70px;
+}
+
+.checkoutLayout .right .form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    border-bottom: 2px solid #5A9A8E;
+    padding-bottom: 20px;
+}
+
+.checkoutLayout .form .group {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.checkoutLayout .form input,
+.checkoutLayout .form select {
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin-top: 10px;
+    border: none;
+    background-color: #F9F9F9;
+    color: #45413E;
+}
+
+.checkoutLayout .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkoutLayout .row div:nth-child(2) {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.buttonCheckout {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #F9F9F9;
+    background-color: #ECBD73;
+    cursor: pointer;
+}
+
+.buttonCheckout:hover {
+    color: #45413E;
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.returnCart h1 {
+    border-top: 2px solid #5A9A8E;
+    padding: 20px 0;
+    color: #45413E;
+}
+
+.returnCart .list .item img {
+    height: 80px;
+}
+
+.returnCart .item {
+    display: grid;
+    grid-template-columns: 100px 1fr 80px 50px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    box-shadow: 0 10px 20px #45413E;
+    border-radius: 20px;
+    color: #45413E;
+}
+
+.returnCart .item .name,
+.returnCart .item .returnPrice {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.returnCart .item .info {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 80px;
+    align-items: center;
+}
+
+.item .info .quantity {
+    padding-left: 80px;
+}
+
+.item .info .returnPrice {
+    padding-left: 250px;
+}
+
+.right h1 {
+    margin-top: 0;
+}
+
+.buttonBack {
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: #F9F9F9;
+    background-color: #5A9A8E;
+    cursor: pointer;
+    border: none;
+}
+
+.buttonBack a {
+    text-decoration: none;
+}
+
+.buttonBack:hover {
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.buttonBack a:hover {
+    color: #F9F9F9;
+}
+
+.buttonBack a:visited {
+    color: #F9F9F9;
+}
+
+.buttonBack a:link {
+    color: #F9F9F9;
+}
+
+.buttonBack a:active {
+    color: #F9F9F9;
+}

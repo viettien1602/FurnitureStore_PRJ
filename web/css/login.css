@@ -1,0 +1,369 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 20, 2024, 10:56:27 AM
+    Author     : ADMIN
+*/
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+     :root {
+        --text-01: #45413E;
+        --light-01: #F9F9F9;
+        --light-02: #FFFFFF;
+        --brand-01: #DB7F67;
+        --brand-02: #F4CFC6;
+        --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
+        --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        --hover-timing: all 0.2s ease;
+        --nav-card-size: 240px;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--brand-02);
+        padding: 30px;
+    }
+    
+    .corner-button {
+        position: absolute;
+        /* Đặt vị trí tuyệt đối cho nút */
+        top: 10px;
+        /* Đặt top để nút cách mép trên 10px */
+        left: 10px;
+        /* Đặt left để nút cách mép trái 10px */
+    }
+    
+    .icon-item {
+        list-style: none
+    }
+    
+    .icon-link {
+        display: inline-flex;
+        font-size: 2rem;
+        text-decoration: none;
+        color: var(--text-01);
+        width: 5rem;
+        height: 5rem;
+        transition: .5s linear;
+        position: relative;
+        z-index: 1;
+        margin: auto
+    }
+    
+    .icon-link:hover {
+        color: #fff;
+    }
+    
+    .icon-link i {
+        margin: auto;
+    }
+    
+    .icon-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 5rem;
+        height: 5rem;
+        background: #000;
+        border-radius: 50%;
+        z-index: -1;
+        transform: scale(0);
+        transition: 0.3s cubic-bezier(.95, .32, .37, 1.21);
+    }
+    
+    .icon-link:hover::before {
+        transform: scale(1);
+    }
+    
+    .icon-item a:hover:before {
+        background: #ECBD73;
+    }
+    
+    .container {
+        position: relative;
+        max-width: 850px;
+        width: 100%;
+        background: #fff;
+        padding: 40px 30px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        perspective: 2700px;
+        /*(!!!)*/
+        border-radius: 12px;
+    }
+    
+    .container .cover {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        /*left: đổi 2 mặt background*/
+        height: 100%;
+        width: 50%;
+        z-index: 98;
+        transition: all 1s ease;
+        /*(!!!)*/
+        transform-origin: left;
+        transform-style: preserve-3d;
+    }
+    
+    .container .cover::after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0.4;
+        z-index: 100;
+        transform: rotateY(180deg);
+        /*lật ngược cả ảnh bên kia*/
+        background: var(--light-01);
+        border-radius: 12px;
+    }
+    
+    .container #flip:checked~.cover {
+        transform: rotateY(-180deg);
+        /*(!!!) - không có dấu ngoặc kép*/
+    }
+    /*Chỉnh kích thước ảnh lật ở đây*/
+    
+    .container .cover img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        z-index: 12;
+        border-radius: 0 12px 12px 0;
+    }
+    
+    .container form {
+        height: 100%;
+        width: 100%;
+        background: #fff;
+    }
+    
+    .container .form-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .form-content .login-form,
+    .form-content .signup-form {
+        width: calc(100% / 2 - 25px);
+        /*background: red;*/
+    }
+    
+    form .form-content .title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #45413E;
+        position: relative;
+    }
+    
+    form .form-content .title:before {
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: 60px;
+        background: #ECBD73;
+        left: 0;
+        bottom: 0;
+    }
+    
+    form .signup-form .title:before {
+        width: 60px;
+        height: 2px;
+    }
+    
+    form .form-content .input-boxes {
+        margin-top: 30px;
+    }
+    
+    form .form-content .input-box {
+        height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        position: relative;
+    }
+    
+    .form-content .input-box input {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        border: none;
+        padding: 0 30px;
+        font-size: 16px;
+        font-weight: 500;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        color: #45413E;
+    }
+    
+    .form-content .input-box input:focus {
+        border-color: #5A9A8E;
+    }
+    
+    .form-content .input-box input:valid {
+        border-color: #ECBD73;
+    }
+    
+    .form-content .input-box i {
+        position: absolute;
+        color: #ECBD73;
+        font-size: 17px;
+    }
+    
+    form .form-content .text {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    form .form-content .text a {
+        text-decoration: none;
+    }
+    
+    form .form-content .text a {
+        text-decoration: none;
+    }
+    
+    form .form-content .text a:link {
+        text-decoration: none;
+        color: var(--brand-01);
+    }
+    
+    form .form-content .text a:hover {
+        text-decoration: underline;
+        color: #ECBD73;
+    }
+    
+    form .form-content .text a:active {
+        text-decoration: underline;
+        color: #5A9A8E;
+    }
+    
+    form .form-content .text a:visited {
+        text-decoration: underline;
+        color: var(--text-01);
+    }
+    
+    form .form-content .button {
+        color: blue;
+        margin-top: 10px;
+    }
+    
+    form .form-content .radio-gender {
+        margin-top: 20px;
+    }
+    
+    form .form-content .button input {
+        background-color: #44403D;
+        color: var(--light-01);
+        border-radius: 6px;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+    
+    form .form-content .button input:hover {
+        background: var(--brand-01);
+    }
+    
+    form .form-content label {
+        color: #5A9A8E;
+        cursor: pointer;
+    }
+    
+    form .form-content label:hover {
+        text-decoration: underline;
+    }
+    
+    form .form-content .login-text,
+    form .form-content .sign-up-text {
+        text-align: center;
+        margin-top: 25px;
+    }
+    
+    .container #flip {
+        display: none;
+    }
+    
+    @media (max-width: 730px) {
+        .container .cover {
+            display: none;
+        }
+        .form-content .login-form,
+        .form-content .signup-form {
+            width: 100%;
+        }
+        .form-content .signup-form {
+            display: none;
+        }
+        .container #flip:checked~form .signup-form {
+            display: block;
+        }
+        .container #flip:checked~form .login-form {
+            display: none;
+        }
+    }
+    /*gender*/
+    
+    label {
+        user-select: none;
+        font-size: 15px;
+    }
+    
+    input[type="radio"] {
+        display: none;
+    }
+    
+    input[type="radio"]+label {
+        z-index: 10;
+        margin: 0 10px 10px 0;
+        position: relative;
+        color: #CCCCCC;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+        background-color: #ffffff;
+        border: 2px solid #ced4da;
+        cursor: pointer;
+        transition: all 200ms ease;
+    }
+    
+    input[type="radio"]:checked+label {
+        color: var(--text-01);
+        background-color: #ECBD73;
+    }
+    
+    input[type="radio"]+label {
+        padding: 5px 15px;
+        border-radius: 10px;
+    }
+    
+    .radio-gender label {
+        text-decoration: none;
+    }
+    
+    .input-gender {
+        margin-right: 30px;
+        margin-bottom: 35px;
+    }
