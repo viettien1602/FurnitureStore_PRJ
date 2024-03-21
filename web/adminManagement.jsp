@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="model.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -88,8 +89,10 @@
                 </div>
                 <div class="user-info">
                     <div class="search-box">
-
-                        <input type="text " placeholder="Search ">
+                        <form action="MainController">
+                            <input type="text " placeholder="Search " name="search">
+                            <button type="submit" name="action" value="GetListUser">Search</button>
+                        </form>
                     </div>
                     <img src="./image/avt/avt-1.png ">
                 </div>
@@ -151,72 +154,50 @@
             <div class="tabular-wrapper ">
                 <h2 class="main-title ">User Information</h2>
                 <div class="table-container ">
+                    <%
+                        List<Users> listUser = (List) request.getAttribute("LIST_USER");
+                        if (listUser != null) {
+                            if (listUser.size() > 0) {
+                    %>
                     <table>
                         <thead>
                             <tr>
                                 <th class="Id">ID</th>
-                                <th><img>Image</th>
                                 <th>Full Name</th>
                                 <th>Email</th>
                                 <th>Role ID</th>
                                 <th>Password</th>
-                                <th>Edit</th>
+                                <th>Gender</th>
                                 <th>Delete</th>
                             </tr>
-
+                        </thead>
                         <tbody>
+                            <%
+                                int count = 1;
+                                for (Users user : listUser) {
+                            %>
                             <tr>
-                                <td class="Id">1</td>
-                                <td><img src="./image/avt/avt-6.png" style="width: 50px;"></td>
-                                <td>Ngô Việt Tiến</td>
-                                <td>viettien1602@gmail.com</td>
-                                <td>US</td>
-                                <td>*********</td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td><button><i class='bx bx-trash' ></i></button></td>
+                                <td class="Id"><%=user.getId()%></td>
+                                <td><%=user.getUsername()%></td>
+                                <td><%=user.getEmail()%></td>
+                                <td><%=user.getRole()%></td>
+                                <td><%=user.getPassword()%></td>
+                                <td><%=user.getGender()%></td>
+                                <td>
+                                    <a href="MainController?action=Delete&id=<%=user.getId()%>">
+                                        <button><i class='bx bx-trash' ></i></button>
+                                    </a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="Id">2</td>
-                                <td><img src="./image/avt/avt-4.png" style="width: 50px;"></td>
-                                <td>Trần Nguyễn Như Nguyên</td>
-                                <td>tnnn0320@gmail.com</td>
-                                <td>AD</td>
-                                <td>*********</td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td><button><i class='bx bx-trash' ></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="Id">3</td>
-                                <td><img src="./image/avt/avt-2.png" style="width: 50px;"></td>
-                                <td>Đúi Ngô</td>
-                                <td>duibietbay1907@gmail.com</td>
-                                <td>AD</td>
-                                <td>*********</td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td><button><i class='bx bx-trash' ></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="Id">4</td>
-                                <td><img src="./image/avt/avt-9.png" style="width: 50px;"></td>
-                                <td>Nấm Đầu Đỏ</td>
-                                <td>nambietnamdau10@gmail.com</td>
-                                <td>AD</td>
-                                <td>*********</td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td><button><i class='bx bx-trash' ></i></button></td>
-                            </tr>
-                            <tr>
-                                <td class="Id">5</td>
-                                <td><img src="./image/avt/avt-3.png" style="width: 50px;"></td>
-                                <td>Thuốc Đẹp Trai</td>
-                                <td>thuocdaudauu@gmail.com</td>
-                                <td>US</td>
-                                <td>*********</td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td><button><i class='bx bx-trash' ></i></button></td>
-                            </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
             </div>
         </div>

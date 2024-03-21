@@ -19,9 +19,9 @@ import javax.servlet.http.Part;
  * @author admin
  */
 @MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-  maxFileSize = 1024 * 1024 * 10,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class MainController extends HttpServlet {
 
@@ -45,7 +45,9 @@ public class MainController extends HttpServlet {
     private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
     private static final String REMOVE_FROM_CART = "RemoveFromCart";
     private static final String REMOVE_FROM_CART_CONTROLLER = "RemoveFromCartController";
-    
+    private static final String GET_LIST_USER = "GetListUser";
+    private static final String GET_LIST_USER_CONTROLLER = "GetListUserController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -53,7 +55,7 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-            switch(action) {
+            switch (action) {
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
                     break;
@@ -81,12 +83,13 @@ public class MainController extends HttpServlet {
                 case REMOVE_FROM_CART:
                     url = REMOVE_FROM_CART_CONTROLLER;
                     break;
+                case GET_LIST_USER:
+                    url = GET_LIST_USER_CONTROLLER;
+                    break;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log("Error at MainController: " + e.toString());
-        }
-        finally {
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
