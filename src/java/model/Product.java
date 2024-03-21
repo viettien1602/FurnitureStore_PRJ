@@ -48,6 +48,16 @@ public class Product {
         this.status = true;
     }
 
+    public Product(int id, String name, double price, int quantity, String description, LocalDate year, boolean notSale) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.year = year;
+        this.notSale = notSale;
+    }
+
     public int getId() {
         return id;
     }

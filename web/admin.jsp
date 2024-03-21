@@ -185,34 +185,84 @@
                         <tbody>
                             <%
                                 int count = 1;
+                                String color = null;
                                 for (Product product : listProduct) {
+                                    if (count % 2 == 1) {
+                                        color = "#ecbd73";
+                                    } else {
+                                        color = "#eddaa9";
+                                    }
                             %>
+
                             <tr>
-                                <td class="Id"><%=product.getId()%></td>
-                                <td><input style="background-color: #ecbd73" value="<%=product.getName()%>"></td>
-                                <td><img src="data:image/png;base64,<%=Base64.getEncoder().encodeToString(product.getImage())%>" style="width: 70px;"></td>
-                                <td><%=product.getDescription()%></td>
-                                <td><%=product.getPrice()%></td>
-                                <td><%=product.getQuantity()%></td>
-                                <td><%=product.getYear()%></td>
-                                <td><%=product.isNotSale()%></td>
-                                <td><button><i class='bx bxs-edit'></i></button></td>
-                                <td>
-                                    <a href="MainController?action=Delete&id=<%=product.getId()%>">
-                                        <button><i class='bx bx-trash' ></i></button>
-                                    </a>
-                                </td>
-                            </tr>
-                            <%
-                                }
-                            %>
+                        <form action="MainController" method="POST">
+                            <td class="Id"><%=product.getId()%></td>
+                            <td>
+                                <input style="background-color: <%=color%>" type="text" name="name" value="<%=product.getName()%>">
+                            </td>
+                            <td><img src="data:image/png;base64,<%=Base64.getEncoder().encodeToString(product.getImage())%>" style="width: 70px;"></td>
+                            <td>
+                                <input style="background-color: <%=color%>" type="text" name="description" value="<%=product.getDescription()%>">
+                            </td>
+                            <td>
+                                <input style="background-color: <%=color%>" type="number" step="0.01" name="price" value="<%=product.getPrice()%>">
+                            </td>
+                            <td>
+                                <input style="background-color: <%=color%>" type="number" name="quantity" value="<%=product.getQuantity()%>">
+                            </td>
+                            <td>
+                                <input style="background-color: <%=color%>" type="date" name="year" value="<%=product.getYear()%>">
+                            </td>
+                            <td>
+                                <%
+                                    if (product.isNotSale()) {
+                                %>
+                                <div class="checkbox-wrapper-31" style="padding-top: 8px; ">
+                                    <input type="checkbox" name="notSale" value="true" checked>
+                                    <svg viewBox="0 0 35.6 35.6">
+                                    <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                                    <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                                    <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                                    </svg>
+                                </div>
+                                <%
+                                } else {
+                                %>
+                                <div class="checkbox-wrapper-31" style="padding-top: 8px; ">
+                                    <input type="checkbox" name="notSale" value="true">
+                                    <svg viewBox="0 0 35.6 35.6">
+                                    <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                                    <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                                    <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                                    </svg>
+                                </div>
+                                <%
+                                    }
+                                %>
+                            </td>
+                            <td>
+                                <button type="submit" name="action" value="Update"><i class='bx bxs-edit'></i></button>
+                                <input type="hidden" name="id" value="<%=product.getId()%>" readonly/>
+                            </td>
+                            <td>
+                                <a href="MainController?action=Delete&id=<%=product.getId()%>">
+                                    <button><i class='bx bx-trash' ></i></button>
+                                </a>
+                            </td>
+                        </form>
+                        </tr>
+
+                        <%
+                                count++;
+                            }
+                        %>
                         </tbody>
                     </table>
                     <%
                             }
                         }
                     %>
-                    
+
                 </div>
                 <div class="form-add ">
                     <div class="form-add-body ">

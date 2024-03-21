@@ -31,6 +31,13 @@ public class ProductService {
         return new ReturnObject<String>(false, "Error inserting new product to database");
     }
     
+    public ReturnObject<?> updateProduct(int id, String name, String description, double price, LocalDate year, int quantity, boolean notSale) throws SQLException {
+        Product product = new Product(id, name, price, quantity, description, year, notSale);
+        boolean checkUpdate = productDAO.update(product);
+        if (checkUpdate) return new ReturnObject<Product>(true, product);
+        return new ReturnObject<String>(false, "Error updating product to database");
+    }
+    
     public List<Product> searchAllProducts(String search) throws SQLException {
         return productDAO.searchAll(search);
     }
