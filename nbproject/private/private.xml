@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/F:/beiu/FurnitureStore/src/java/dao/AvatarDAO.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/login.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/RemoveFromCartController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/enums/Gender.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/js/admin.js</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/SearchController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Cart.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/InsertController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/util/ImageUtils.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/css/home.css</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/CheckoutController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/dao/UserDAO.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Role.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/LoginController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/MainController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/enums/AvatarType.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/invoice.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/util/DBUtils.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/dao/OrderDAO.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/OrderDetails.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/LogoutController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/checkout.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/web/admin.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/web/home.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/RegisterController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/service/OrderService.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/dao/ProductDAO.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Order.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/adminManagement.jsp</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/service/CartService.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/service/UserService.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/ProductInCart.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/AddToCartController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Avatar.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/controller/DeleteController.java</file>
+            <file>file:/F:/beiu/FurnitureStore/web/js/home.js</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Users.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/Product.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/model/ReturnObject.java</file>
+            <file>file:/F:/beiu/FurnitureStore/src/java/service/ProductService.java</file>
+        </group>
+    </open-files>
+</project-private>

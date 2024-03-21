@@ -7,49 +7,37 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ReturnObject;
+import model.Product;
 import model.Users;
-import service.CartService;
 import service.ProductService;
-import service.UserService;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "WelcomeController", urlPatterns = {"/WelcomeController"})
+public class WelcomeController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "login.jsp";
+    private static final String HOME = "home.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = HOME;
+        
         try {
-            String username = request.getParameter("registerUsername");
-            String email = request.getParameter("registerEmail");
-            String password = request.getParameter("registerPassword");
-            String gender = request.getParameter("gender");
-            UserService userService = new UserService();
-            ReturnObject<?> returnObject = userService.register(username, email, password, gender);
             ProductService productService = new ProductService();
-            if (returnObject.isSuccess()) {
-                url = SUCCESS;
-            }
-            else {
-                request.setAttribute("ERROR", returnObject.getReturnValue());
-            }
+            request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
         }
         catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         }
         finally {
             request.getRequestDispatcher(url).forward(request, response);

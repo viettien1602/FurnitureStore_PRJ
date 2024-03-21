@@ -22,12 +22,14 @@ import util.ImageUtils;
  * @author admin
  */
 public class ProductDAO {
+
     private static final String INSERT = "insert into Product(name, price, quantity, image, description, year, notSale) values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE = "update Product set name = ?, price = ?, quantity = ?, description = ?, year = ?, notSale = ? where id = ? and status = 1"; 
     private static final String SEARCH_ALL = "select id, name, price, quantity, image, description, year, notSale, status from Product where name like ? and status = 1";
     private static final String SEARCH_BY_NOT_SALE = "select id, name, price, quantity, image, description, year, notSale, status from Product where name like ? and notSale = ? and status = 1";
     private static final String DELETE = "update Product set status = 0 where id = ?";
     private static final String SEARCH_BY_ID = "select id, name, price, quantity, image, description, year, notSale, status from Product where id = ? and notSale = 0 and status = 1";
-    
+
     public boolean insert(Product product) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -44,21 +46,59 @@ public class ProductDAO {
                 ptm.setString(5, product.getDescription());
                 ptm.setDate(6, Date.valueOf(product.getYear()));
                 ptm.setBoolean(7, product.isNotSale());
-                check = ptm.executeUpdate() > 0;                    
+                check = ptm.executeUpdate() > 0;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (con != null) con.close();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
         return check;
     }
-    
-    public List<Product> searchAll(String search) throws SQLException{
+
+    public boolean update(Product product) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(UPDATE);
+                ptm.setString(1, product.getName());
+                ptm.setDouble(2, product.getPrice());
+                ptm.setInt(3, product.getQuantity());
+                ptm.setString(4, product.getDescription());
+                ptm.setDate(5, Date.valueOf(product.getYear()));
+                ptm.setBoolean(6, product.isNotSale());
+                ptm.setInt(7, product.getId());
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+    }
+
+    public List<Product> searchAll(String search) throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection con = null;
         PreparedStatement ptm = null;
@@ -82,19 +122,23 @@ public class ProductDAO {
                     listProduct.add(new Product(id, name, price, quantity, ImageUtils.decompressImage(imageByteArray), description, year, notSale, status));
                 }
             }
-        }
-        catch (Exception e) {
-            
-        }
-        finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (con != null) con.close();
+        } catch (Exception e) {
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
         return listProduct;
     }
-    
-    public List<Product> searchByNotSale(String search, boolean expectedNotSale) throws SQLException{
+
+    public List<Product> searchByNotSale(String search, boolean expectedNotSale) throws SQLException {
         List<Product> listProduct = new ArrayList<>();
         Connection con = null;
         PreparedStatement ptm = null;
@@ -119,19 +163,23 @@ public class ProductDAO {
                     listProduct.add(new Product(id, name, price, quantity, ImageUtils.decompressImage(imageByteArray), description, year, notSale, status));
                 }
             }
-        }
-        catch (Exception e) {
-            
-        }
-        finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (con != null) con.close();
+        } catch (Exception e) {
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
         return listProduct;
     }
-    
-    public Product searchById(int id) throws SQLException{
+
+    public Product searchById(int id) throws SQLException {
         Product product = null;
         Connection con = null;
         PreparedStatement ptm = null;
@@ -154,18 +202,22 @@ public class ProductDAO {
                     product = new Product(id, name, price, quantity, ImageUtils.decompressImage(imageByteArray), description, year, notSale, status);
                 }
             }
-        }
-        catch (Exception e) {
-            
-        }
-        finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (con != null) con.close();
+        } catch (Exception e) {
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
         return product;
     }
-    
+
     public boolean delete(int id) throws SQLException {
         boolean check = false;
         Connection con = null;
@@ -178,13 +230,17 @@ public class ProductDAO {
                 ptm.setInt(1, id);
                 check = ptm.executeUpdate() > 0;
             }
-        }
-        catch (Exception e) {
-        }
-        finally {
-            if (rs != null) rs.close();
-            if (ptm != null) ptm.close();
-            if (con != null) con.close();
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
         return check;
     }

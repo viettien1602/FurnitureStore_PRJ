@@ -7,51 +7,49 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import model.ReturnObject;
-import model.Users;
-import service.CartService;
 import service.ProductService;
-import service.UserService;
+import util.ImageUtils;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
+public class UpdateController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "login.jsp";
+    private static final String ERROR = "admin.jsp";
+    private static final String SUCCESS = "admin.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("registerUsername");
-            String email = request.getParameter("registerEmail");
-            String password = request.getParameter("registerPassword");
-            String gender = request.getParameter("gender");
-            UserService userService = new UserService();
-            ReturnObject<?> returnObject = userService.register(username, email, password, gender);
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            double price = Double.parseDouble(request.getParameter("price"));
+            LocalDate year = LocalDate.parse(request.getParameter("year"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            boolean notSale = request.getParameter("notSale") != null && "true".equals(request.getParameter("notSale"));
             ProductService productService = new ProductService();
+            ReturnObject<?> returnObject = productService.updateProduct(id, name, description, price, year, quantity, notSale);
             if (returnObject.isSuccess()) {
-                url = SUCCESS;
+                request.setAttribute("MESSAGE", "Updated existing product successfully");
+                request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
             }
-            else {
-                request.setAttribute("ERROR", returnObject.getReturnValue());
-            }
-        }
-        catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
-        }
-        finally {
+            else request.setAttribute("MESSAGE", returnObject.getReturnValue());
+        } catch (Exception e) {
+            log("Error at InsertController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
