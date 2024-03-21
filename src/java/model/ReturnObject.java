@@ -11,11 +11,14 @@ package model;
  */
 public class ReturnObject<T> {
     private boolean success;
-    private T error;
+    private T returnValue;
 
-    public ReturnObject(boolean success, T error) {
+    public ReturnObject() {
+    }
+
+    public ReturnObject(boolean success, T returnValue) {
         this.success = success;
-        this.error = error;
+        this.returnValue = returnValue;
     }
 
     public ReturnObject(boolean success) {
@@ -26,15 +29,15 @@ public class ReturnObject<T> {
         return success;
     }
 
-    public T getError() {
-        return error;
+    public T getReturnValue() {
+        return returnValue;
     }
 
     public void setSuccess(boolean success) {
         this.success = success;
     }
 
-    public void setError(T error) {
-        this.error = error;
+    public void setReturnValue(T returnValue) {
+        this.returnValue = returnValue;
     }
 }

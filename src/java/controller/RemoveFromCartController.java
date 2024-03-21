@@ -13,60 +13,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Users;
-import service.CartService;
+import model.Cart;
+import model.Product;
 import service.ProductService;
-import service.UserService;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "RemoveFromCartController", urlPatterns = {"/RemoveFromCartController"})
+public class RemoveFromCartController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String AD = "AD";
-    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
-    
+    private static final String ERROR = "home.jsp";
+    private static final String HOME = "home.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserService userService = new UserService();
-            Users user = userService.checkLogin(username, password);
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
-                CartService cartService = new CartService();
-                cartService.createCard(session);
-                ProductService productService = new ProductService();
-                String roleID = user.getRole().getId();
-                if (AD.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
-                    url = ADMIN_PAGE;
-                }
-                else if (US.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
-                    url = USER_PAGE;
-                }
-                else {
-                    request.setAttribute("ERROR", "Your role are not supported.");
-                }
+            int id = Integer.parseInt(request.getParameter("id"));
+            ProductService productService = new ProductService();
+            HttpSession session = request.getSession();
+            Cart cart = (Cart) session.getAttribute("CART");
+            if (cart != null) {
+                cart.removeFromCart(id);
+            } else {
+                request.setAttribute("CART_MESSAGE", "Cart not found");
             }
-            else {
-                request.setAttribute("ERROR", "Incorrect userID or password");
-            }
-        }
-        catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        }
-        finally {
+            url = HOME;
+            request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
+        } catch (Exception e) {
+            log("Error at AddToCartController:" + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

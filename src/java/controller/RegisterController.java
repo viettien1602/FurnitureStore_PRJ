@@ -13,58 +13,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.ReturnObject;
 import model.Users;
 import service.CartService;
-import service.ProductService;
 import service.UserService;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
+public class RegisterController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
-    private static final String AD = "AD";
-    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
+    private static final String SUCCESS = "home.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String username = request.getParameter("registerUsername");
+            String email = request.getParameter("registerEmail");
+            String password = request.getParameter("registerPassword");
+            String gender = request.getParameter("gender");
             UserService userService = new UserService();
-            Users user = userService.checkLogin(username, password);
-            if (user != null) {
+            ReturnObject<?> returnObject = userService.register(username, email, password, gender);
+            if (returnObject.isSuccess()) {
                 HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
+                session.setAttribute("LOGIN_USER", returnObject.getReturnValue());
                 CartService cartService = new CartService();
                 cartService.createCard(session);
-                ProductService productService = new ProductService();
-                String roleID = user.getRole().getId();
-                if (AD.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
-                    url = ADMIN_PAGE;
-                }
-                else if (US.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
-                    url = USER_PAGE;
-                }
-                else {
-                    request.setAttribute("ERROR", "Your role are not supported.");
-                }
+                url = SUCCESS;
             }
             else {
-                request.setAttribute("ERROR", "Incorrect userID or password");
+                request.setAttribute("ERROR", returnObject.getReturnValue());
             }
         }
         catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at RegisterController: " + e.toString());
         }
         finally {
             request.getRequestDispatcher(url).forward(request, response);

@@ -7,66 +7,50 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Users;
-import service.CartService;
+import javax.servlet.http.Part;
+import model.ReturnObject;
 import service.ProductService;
-import service.UserService;
+import util.ImageUtils;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "InsertController", urlPatterns = {"/InsertController"})
+public class InsertController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String AD = "AD";
-    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
-    
+    private static final String ERROR = "admin.jsp";
+    private static final String SUCCESS = "admin.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserService userService = new UserService();
-            Users user = userService.checkLogin(username, password);
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
-                CartService cartService = new CartService();
-                cartService.createCard(session);
-                ProductService productService = new ProductService();
-                String roleID = user.getRole().getId();
-                if (AD.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
-                    url = ADMIN_PAGE;
-                }
-                else if (US.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
-                    url = USER_PAGE;
-                }
-                else {
-                    request.setAttribute("ERROR", "Your role are not supported.");
-                }
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            double price = Double.parseDouble(request.getParameter("price"));
+            LocalDate year = LocalDate.parse(request.getParameter("year"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            Part image = request.getPart("image");
+            byte[] imageByteArray = ImageUtils.convertInputStreamToByteArray(image.getInputStream());
+            boolean notSale = request.getParameter("notSale") != null && "true".equals(request.getParameter("notSale"));
+            ProductService productService = new ProductService();
+            ReturnObject<?> returnObject = productService.insertProduct(name, description, price, year, quantity, imageByteArray, notSale);
+            if (returnObject.isSuccess()) {
+                request.setAttribute("MESSAGE", "Added new product successfully");
             }
-            else {
-                request.setAttribute("ERROR", "Incorrect userID or password");
-            }
-        }
-        catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        }
-        finally {
+            else request.setAttribute("MESSAGE", returnObject.getReturnValue());
+        } catch (Exception e) {
+            log("Error at InsertController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

@@ -29,7 +29,7 @@ public class UserService {
         return dao.login(username, password);
     }
     
-    public ReturnObject<String> register(String username, String email, String password, String genderString) throws SQLException {
+    public ReturnObject<?> register(String username, String email, String password, String genderString) throws SQLException {
         Gender gender = null;
         try {
             gender = Gender.valueOf(genderString);
@@ -41,7 +41,7 @@ public class UserService {
         
         Users user = new Users(username, email, password, gender, new Role("US"), null);
         boolean checkRegister = dao.register(user);
-        if (checkRegister) return new ReturnObject<>(true);
-        else return new ReturnObject<>(false, "Error in registering user");
+        if (checkRegister) return new ReturnObject<Users>(true, user);
+        else return new ReturnObject<String>(false, "Error in registering user");
     }
 }

@@ -34,4 +34,19 @@ public class Cart {
             productInCart.setQuantity(quantity);
         }
     }
+    
+    public boolean checkAddedQuantity(Product product, int quantity) {
+        if (cart.get(product.getId())== null) {
+            if (product.getQuantity() > 0) return true;
+        }
+        else {
+            ProductInCart productInCart = cart.get(product.getId());
+            if (productInCart.getProduct().getQuantity() + quantity <= product.getQuantity()) return true;
+        }
+        return false;
+    }
+    
+    public void removeFromCart(int id) {
+        if (cart.get(id) != null) cart.remove(id);
+    }
 }

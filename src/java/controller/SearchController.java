@@ -7,64 +7,55 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Product;
 import model.Users;
-import service.CartService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import service.ProductService;
-import service.UserService;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "SearchController", urlPatterns = {"/SearchController"})
+public class SearchController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String AD = "AD";
-    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String US = "US";
-    private static final String USER_PAGE = "home.jsp";
+    private static final String ERROR_US = "home.jsp";
+    private static final String SUCCESS_US = "home.jsp";
+    private static final String ERROR_AD = "admin.jsp";
+    private static final String SUCCESS_AD = "admin.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url;
+        HttpSession session = request.getSession();
+        Users loginUser = (Users) session.getAttribute("LOGIN_USER");
+        String roleId = loginUser.getRole().getId();
+        if (roleId.equals("US")) url = ERROR_US;
+        else url = ERROR_AD;
+        
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            UserService userService = new UserService();
-            Users user = userService.checkLogin(username, password);
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("LOGIN_USER", user);
-                CartService cartService = new CartService();
-                cartService.createCard(session);
-                ProductService productService = new ProductService();
-                String roleID = user.getRole().getId();
-                if (AD.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
-                    url = ADMIN_PAGE;
-                }
-                else if (US.equals(roleID)) {
-                    request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale("", false));
-                    url = USER_PAGE;
-                }
-                else {
-                    request.setAttribute("ERROR", "Your role are not supported.");
-                }
+            String search = request.getParameter("search");
+            ProductService productService = new ProductService();
+            if (roleId.equals("AD")) {
+                List<Product> listProduct = productService.searchAllProducts(search);
+                request.setAttribute("LIST_PRODUCT", listProduct);
+                url = SUCCESS_AD;
             }
             else {
-                request.setAttribute("ERROR", "Incorrect userID or password");
+                request.setAttribute("LIST_PRODUCT", productService.searchProductsByNotSale(search, false));
+                url = SUCCESS_US;
             }
         }
         catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         }
         finally {
             request.getRequestDispatcher(url).forward(request, response);

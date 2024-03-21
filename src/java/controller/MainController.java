@@ -8,14 +8,21 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author admin
  */
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
@@ -26,7 +33,18 @@ public class MainController extends HttpServlet {
     private static final String LOGOUT_CONTROLLER = "LogoutController";
     private static final String REGISTER = "Register";
     private static final String REGISTER_CONTROLLER = "RegisterController";
-    
+    private static final String UPDATE = "Update";
+    private static final String UPDATE_CONTROLLER = "UpdateController";
+    private static final String DELETE = "Delete";
+    private static final String DELETE_CONTROLLER = "DeleteController";
+    private static final String INSERT = "Insert";
+    private static final String INSERT_CONTROLLER = "InsertController";
+    private static final String SEARCH = "Search";
+    private static final String SEARCH_CONTROLLER = "SearchController";
+    private static final String ADD_TO_CART = "AddToCart";
+    private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
+    private static final String REMOVE_FROM_CART = "RemoveFromCart";
+    private static final String REMOVE_FROM_CART_CONTROLLER = "RemoveFromCartController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,6 +62,24 @@ public class MainController extends HttpServlet {
                     break;
                 case REGISTER:
                     url = REGISTER_CONTROLLER;
+                    break;
+                case UPDATE:
+                    url = UPDATE_CONTROLLER;
+                    break;
+                case DELETE:
+                    url = DELETE_CONTROLLER;
+                    break;
+                case INSERT:
+                    url = INSERT_CONTROLLER;
+                    break;
+                case SEARCH:
+                    url = SEARCH_CONTROLLER;
+                    break;
+                case ADD_TO_CART:
+                    url = ADD_TO_CART_CONTROLLER;
+                    break;
+                case REMOVE_FROM_CART:
+                    url = REMOVE_FROM_CART_CONTROLLER;
                     break;
             }
         }
