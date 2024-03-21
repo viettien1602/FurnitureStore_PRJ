@@ -47,13 +47,12 @@ public class MainController extends HttpServlet {
     private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
     private static final String REMOVE_FROM_CART = "RemoveFromCart";
     private static final String REMOVE_FROM_CART_CONTROLLER = "RemoveFromCartController";
-<<<<<<< HEAD
     private static final String GET_LIST_USER = "GetListUser";
     private static final String GET_LIST_USER_CONTROLLER = "GetListUserController";
-=======
+    private static final String DELETE_USER = "DeleteUser";
+    private static final String DELETE_USER_CONTROLLER = "DeleteUserController";
     private static final String CHECKOUT = "Checkout";
     private static final String CHECKOUT_CONTROLLER = "CheckoutController";
->>>>>>> f752d7ca2926a92aad38d50413b19f04e96d3b8b
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,15 +61,11 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-<<<<<<< HEAD
-            switch (action) {
-=======
             if (action == null) action = WELCOME;
             switch (action) {
                 case WELCOME:
                     url = WELCOME_CONTROLLER;
                     break;
->>>>>>> f752d7ca2926a92aad38d50413b19f04e96d3b8b
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
                     break;
@@ -98,13 +93,14 @@ public class MainController extends HttpServlet {
                 case REMOVE_FROM_CART:
                     url = REMOVE_FROM_CART_CONTROLLER;
                     break;
-<<<<<<< HEAD
                 case GET_LIST_USER:
                     url = GET_LIST_USER_CONTROLLER;
-=======
+                    break;
                 case CHECKOUT:
                     url = CHECKOUT_CONTROLLER;
->>>>>>> f752d7ca2926a92aad38d50413b19f04e96d3b8b
+                    break;
+                case DELETE_USER:
+                    url = DELETE_USER_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

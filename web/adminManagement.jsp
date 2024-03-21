@@ -30,7 +30,7 @@
             <div class="logo">
                 <ul class="menu">
                     <li>
-                        <a href="./admin.jsp">
+                        <a href="MainController?action=Search&search=">
                             <i class='bx bxs-dashboard' style="font-size: 22px;"></i>
                             <span>Dashboard</span>
                         </a>
@@ -184,7 +184,7 @@
                                 <td><%=user.getPassword()%></td>
                                 <td><%=user.getGender()%></td>
                                 <td>
-                                    <a href="MainController?action=Delete&id=<%=user.getId()%>">
+                                    <a href="MainController?action=DeleteUser&id=<%=user.getId()%>">
                                         <button><i class='bx bx-trash' ></i></button>
                                     </a>
                                 </td>

@@ -24,7 +24,8 @@ public class UserDAO {
 
     private static final String LOGIN = "select id, email, gender, roleId, avatarId, status from Users where username = ? and password = ? and status = 1";
     private static final String REGISTER = "insert into Users(username, email, password, gender, roleId, avatarId) values (?, ?, ?, ?, ?, ?)";
-    private static final String SEARCH = "SELECT id, username, email, roleId, password, gender FROM Users WHERE username like ?";
+    private static final String SEARCH = "SELECT id, username, email, roleId, password, gender FROM Users WHERE username like ? and status = 1";
+    private static final String DELETE = "update Users set status = 0 where id = ?";
 
     public Users login(String username, String password) throws SQLException {
         Users user = null;
@@ -110,7 +111,7 @@ public class UserDAO {
                     String email = rs.getString("email");
                     String password = "***";
                     Gender gender = Gender.valueOf(rs.getString("gender"));
-                    String role = rs.getString("rodeId");
+                    String role = rs.getString("roleId");
                     list.add(new Users(id, name, email, password, gender, new Role(role)));
                 }
             }
@@ -128,5 +129,29 @@ public class UserDAO {
             }
         }
         return list;
+    }
+    
+    public boolean delete(int userId) throws SQLException {
+        boolean check = false;
+        Connection con = null;
+        PreparedStatement ptm = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                ptm = con.prepareStatement(DELETE);
+                ptm.setInt(1, userId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 }

@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./adminManagement.jsp">
+                        <a href="MainController?action=GetListUser&search=">
                             <i class='bx bx-user-circle' style="font-size: 22px;"></i>
                             <span>Staff</span>
                         </a>
