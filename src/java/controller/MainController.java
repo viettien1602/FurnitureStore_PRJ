@@ -19,14 +19,16 @@ import javax.servlet.http.Part;
  * @author admin
  */
 @MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-  maxFileSize = 1024 * 1024 * 10,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     //Login, logout, register new user
+    private static final String WELCOME = "Welcome";
+    private static final String WELCOME_CONTROLLER = "WelcomeController";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String LOGOUT = "Logout";
@@ -45,7 +47,9 @@ public class MainController extends HttpServlet {
     private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
     private static final String REMOVE_FROM_CART = "RemoveFromCart";
     private static final String REMOVE_FROM_CART_CONTROLLER = "RemoveFromCartController";
-    
+    private static final String CHECKOUT = "Checkout";
+    private static final String CHECKOUT_CONTROLLER = "CheckoutController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -53,7 +57,11 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-            switch(action) {
+            if (action == null) action = WELCOME;
+            switch (action) {
+                case WELCOME:
+                    url = WELCOME_CONTROLLER;
+                    break;
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
                     break;
@@ -81,12 +89,13 @@ public class MainController extends HttpServlet {
                 case REMOVE_FROM_CART:
                     url = REMOVE_FROM_CART_CONTROLLER;
                     break;
+                case CHECKOUT:
+                    url = CHECKOUT_CONTROLLER;
+                    break;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log("Error at MainController: " + e.toString());
-        }
-        finally {
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

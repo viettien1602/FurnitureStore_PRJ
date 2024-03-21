@@ -13,45 +13,59 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Cart;
+import model.Product;
 import model.ReturnObject;
 import model.Users;
-import service.CartService;
+import service.OrderService;
 import service.ProductService;
-import service.UserService;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "CheckoutController", urlPatterns = {"/CheckoutController"})
+public class CheckoutController extends HttpServlet {
 
-    private static final String ERROR = "login.jsp";
-    private static final String SUCCESS = "login.jsp";
-    
+    private static final String ERROR = "checkout.jsp";
+    private static final String INVOICE = "invoice.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String username = request.getParameter("registerUsername");
-            String email = request.getParameter("registerEmail");
-            String password = request.getParameter("registerPassword");
-            String gender = request.getParameter("gender");
-            UserService userService = new UserService();
-            ReturnObject<?> returnObject = userService.register(username, email, password, gender);
-            ProductService productService = new ProductService();
-            if (returnObject.isSuccess()) {
-                url = SUCCESS;
+            HttpSession session = request.getSession();
+            Users user = (Users) session.getAttribute("LOGIN_USER");
+            Cart cart = (Cart) session.getAttribute("CART");
+            if (cart == null) {
+                request.setAttribute("CART_MESSAGE", "Cart not found");
+                return;
+            }
+            if (cart.getCart().isEmpty()) {
+                request.setAttribute("CART_MESSAGE", "Cart is empty");
+                return;
+            }
+            String fullName = request.getParameter("fullName");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String address = request.getParameter("address");
+            String country = request.getParameter("country");
+            String city = request.getParameter("city");
+            String note = request.getParameter("note");
+            // tim product ung voi id
+            OrderService orderService = new OrderService();
+            ReturnObject<?> checkCheckout = orderService.checkout(fullName, phoneNumber, address, country, city, note, cart, user);
+            if (checkCheckout.isSuccess()) {
+                request.setAttribute("ORDER", checkCheckout.getReturnValue());
+                url = INVOICE;
+                cart.resetCart();
             }
             else {
-                request.setAttribute("ERROR", returnObject.getReturnValue());
+                request.setAttribute("CART_MESSAGE", checkCheckout.getReturnValue());
             }
-        }
-        catch (Exception e) {
-            log("Error at RegisterController: " + e.toString());
-        }
-        finally {
+        } catch (Exception e) {
+            log("Error at AddToCartController:" + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

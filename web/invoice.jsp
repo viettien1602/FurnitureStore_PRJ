@@ -4,6 +4,8 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.OrderDetails"%>
+<%@page import="model.Order"%>
 <%@page import="model.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,6 +24,11 @@
         <%
             Users loginUser = (Users) session.getAttribute("LOGIN_USER");
             if (loginUser == null || !loginUser.getRole().getId().equals("US")) {
+                response.sendRedirect("login.jsp");
+                return;
+            }
+            Order order = (Order) request.getAttribute("ORDER");
+            if (order == null) {
                 response.sendRedirect("login.jsp");
                 return;
             }
@@ -60,7 +67,7 @@
                                                         Invoice
                                                     </td>
                                                     <td class="content-line1" bgcolor="#F4CFC6" align="right">
-                                                        #160202
+                                                        #<%=order.getId()%>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -68,7 +75,7 @@
                                                         Order Date
                                                     </td>
                                                     <td class="content-line1" align="right">
-                                                        Mar. 20, 2023
+                                                        <%=order.getCreatedAt().toLocalDate()%>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -76,7 +83,7 @@
                                                         Customer
                                                     </td>
                                                     <td class="content-line1" align="right">
-                                                        Ngo Viet Tien
+                                                        <%=order.getFullName()%>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -93,50 +100,27 @@
                                     <tr>
                                         <td>
                                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                <%
+                                                    for (OrderDetails orderDetail : order.getOrderDetails()) {
+                                                %>
                                                 <tr class="listItem">
                                                     <td class="label-name" align="left" width="40%">
-                                                        <span>Item Name</span>
+                                                        <span><%=orderDetail.getProduct().getName()%></span>
                                                     </td>
                                                     <td class="quantity" align="left" style="width: 10%;">
-                                                        <span>1</span>
+                                                        <span><%=orderDetail.getQuantity()%></span>
                                                     </td>
                                                     <td class="price" align="center" style="width: 15%;">
-                                                        <span>$100.00</span>
+                                                        <span>$<%=orderDetail.getPrice()%></span>
                                                     </td>
                                                     <td class="total-cost" align="right" style="width: 35%;">
-                                                        $100.00
+                                                        $<%=orderDetail.getQuantity() * orderDetail.getPrice()%>
                                                     </td>
                                                 </tr>
+                                                <%
+                                                    }
+                                                %>
 
-                                                <tr class="listItem">
-                                                    <td class="label-name" align="left" width="40%">
-                                                        <span>Item Name</span>
-                                                    </td>
-                                                    <td class="quantity" align="left" style="width: 10%;">
-                                                        <span>1</span>
-                                                    </td>
-                                                    <td class="price" align="center" style="width: 15%;">
-                                                        <span>$100.00</span>
-                                                    </td>
-                                                    <td class="total-cost" align="right" style="width: 35%;">
-                                                        $100.00
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="listItem">
-                                                    <td class="label-name" align="left" width="40%">
-                                                        <span>Item Name</span>
-                                                    </td>
-                                                    <td class="quantity" align="left" style="width: 10%;">
-                                                        <span>1</span>
-                                                    </td>
-                                                    <td class="price" align="center" style="width: 15%;">
-                                                        <span>$100.00</span>
-                                                    </td>
-                                                    <td class="total-cost" align="right" style="width: 35%;">
-                                                        $100.00
-                                                    </td>
-                                                </tr>
                                             </table>
                                         </td>
                                     </tr>
@@ -153,10 +137,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="label2">
-                                                        Tax (7%)
+                                                        Tax (~7%)
                                                     </td>
                                                     <td class="content-line2" align="right">
-                                                        $21.00
+                                                        $<%=Math.round(order.getTotalPriceAfterTax()) - Math.round(order.getTotalPriceBeforeTax())%>
                                                     </td>
                                                 </tr>
 
@@ -171,7 +155,7 @@
                                                         TOTAL
                                                     </td>
                                                     <td class="content-total" align="right">
-                                                        $321.00
+                                                        $<%=Math.round(order.getTotalPriceAfterTax())%>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -193,7 +177,7 @@
                                                     <tr>
                                                         <td align=" left" valign="top">
                                                             <p style="font-weight: 800; ">Delivery Address</p>
-                                                            <p>9/2B 22 street,<br>Hiep Binh Chanh, Thu Duc</p>
+                                                            <p><%=order.getAddress()%><br><%=order.getCity()%>, <%=order.getCountry()%></p>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -203,7 +187,7 @@
                                                     <tr>
                                                         <td align="right " valign="top">
                                                             <p style="font-weight: 800; ">Estimated Delivery Date</p>
-                                                            <p>March 24th, 2023</p>
+                                                            <p><%=order.getEstimatedDeliveryDate()%></p>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -237,7 +221,7 @@
                                                     <tr>
                                                         <td align="right " valign="top">
                                                             <p style="font-weight: 800; ">Order Note</p>
-                                                            <p>Hihihihihihihihii bé Guen iu anh Tiến nhắmmm</p>
+                                                            <p><%=order.getNote()%></p>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -265,7 +249,7 @@
                                             <table cellspacing="0 " cellpadding="0 ">
                                                 <tr>
                                                     <td align="center ">
-                                                        <button><a href="./login.jsp" target="_blank ">Start Shopping</a></button>
+                                                        <button><a href="MainController?action=Search&search=" target="_blank ">Start Shopping</a></button>
                                                     </td>
                                                 </tr>
                                             </table>

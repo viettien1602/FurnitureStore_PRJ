@@ -31,7 +31,7 @@ public class Cart {
         else {
             ProductInCart productInCart = cart.get(product.getId());
             productInCart.setProduct(product);
-            productInCart.setQuantity(quantity);
+            productInCart.setQuantity(productInCart.getQuantity() + quantity);
         }
     }
     
@@ -41,12 +41,16 @@ public class Cart {
         }
         else {
             ProductInCart productInCart = cart.get(product.getId());
-            if (productInCart.getProduct().getQuantity() + quantity <= product.getQuantity()) return true;
+            if (productInCart.getQuantity() + quantity <= product.getQuantity()) return true;
         }
         return false;
     }
     
     public void removeFromCart(int id) {
         if (cart.get(id) != null) cart.remove(id);
+    }
+    
+    public void resetCart() {
+        cart.clear();
     }
 }

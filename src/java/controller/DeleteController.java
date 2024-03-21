@@ -34,6 +34,7 @@ public class DeleteController extends HttpServlet {
             ProductService productService = new ProductService();
             ReturnObject<?> returnObject = productService.deleteProduct(id);
             request.setAttribute("MESSAGE", returnObject.getReturnValue());
+            request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
         } catch (Exception e) {
             log("Error at DeleteController: " + e.toString());
         } finally {

@@ -291,7 +291,6 @@
             </div>
 
             <section class="product" id="products">
-                <h3><%=cartMessage%></h3>
                 <h2>Our Products</h2>
                 <div class="listProduct">
                     <%
@@ -304,7 +303,7 @@
                     <div class="item">
                         <img src="data:image/png;base64,<%=Base64.getEncoder().encodeToString(product.getImage())%>">
                         <h4 class="item-name"><%=product.getName()%></h4>
-                        <div class="price">$<%=(int)product.getPrice()%></div>
+                        <div class="price">$<%=(int) product.getPrice()%></div>
                         <form action="MainController" method="POST">
                             <div class="value-button" id="decrease"><span>-</span></div>
                             <input type="number" id="number" name="quantity" value="0" />

@@ -46,6 +46,7 @@ public class InsertController extends HttpServlet {
             ReturnObject<?> returnObject = productService.insertProduct(name, description, price, year, quantity, imageByteArray, notSale);
             if (returnObject.isSuccess()) {
                 request.setAttribute("MESSAGE", "Added new product successfully");
+                request.setAttribute("LIST_PRODUCT", productService.searchAllProducts(""));
             }
             else request.setAttribute("MESSAGE", returnObject.getReturnValue());
         } catch (Exception e) {

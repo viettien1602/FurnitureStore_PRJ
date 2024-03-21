@@ -25,7 +25,7 @@
         
         <div class="corner-button">
             <li class="icon-item">
-                <a href="./home.jsp" class="icon-link"><i class="fas fa-home"></i></a>
+                <a href="MainController?action=Welcome" class="icon-link"><i class="fas fa-home"></i></a>
             </li>
         </div>
         <div class="container">

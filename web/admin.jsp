@@ -189,7 +189,7 @@
                             %>
                             <tr>
                                 <td class="Id"><%=product.getId()%></td>
-                                <td><%=product.getName()%></td>
+                                <td><input style="background-color: #ecbd73" value="<%=product.getName()%>"></td>
                                 <td><img src="data:image/png;base64,<%=Base64.getEncoder().encodeToString(product.getImage())%>" style="width: 70px;"></td>
                                 <td><%=product.getDescription()%></td>
                                 <td><%=product.getPrice()%></td>
@@ -274,7 +274,6 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div><%=message%></div>
                                 <div class="add_finish ">
                                     <button type="submit" name="action" value="Insert">Add</button>
                                 </div>
