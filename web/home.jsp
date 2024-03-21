@@ -304,13 +304,13 @@
                     <div class="item">
                         <img src="data:image/png;base64,<%=Base64.getEncoder().encodeToString(product.getImage())%>">
                         <h4 class="item-name"><%=product.getName()%></h4>
-                        <div class="price">$<%=product.getPrice()%></div>
+                        <div class="price">$<%=(int)product.getPrice()%></div>
                         <form action="MainController" method="POST">
                             <div class="value-button" id="decrease"><span>-</span></div>
                             <input type="number" id="number" name="quantity" value="0" />
                             <div class="value-button" id="increase"><span>+</span></div>
                             <input type="hidden" name="id" value="<%=product.getId()%>" />
-                            <button class="addCart" type="submit" name="action" value="AddToCart">
+                            <button class="addCart" type="submit" name="action" value="AddToCart" style="margin-left: 35px;">
                                 Add To Cart
                             </button>
                         </form>

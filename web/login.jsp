@@ -42,8 +42,8 @@
                         <div class="title">
                             LOGIN
                         </div>
+                        <div style="color: #5A9A8E; font-weight: 600; text-align: center; margin-top: 20px"><h3><%=error%><h3></div> <!--style error here-->
                         <div class="input-boxes">
-
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
                                 <input type="text" placeholder="Enter your username" name="username"> <!--required here-->
@@ -55,7 +55,7 @@
                             <div class="text">
                                 <a href="#">Forgot password?</a>
                             </div>
-                            <div><%=error%></div> <!--style error here-->
+                           
                             <div class="button input-box">
                                 <input type="submit" name="action" value="Login">
                             </div>
@@ -90,7 +90,6 @@
                                 <input type='radio' id='female' name='gender' value="FEMALE">
                                 <label for='female' style="text-decoration: none;">Female</label>
                             </div>
-                            <div><%=error%></div> <!--style error here-->
                             <div class="button input-box">
                                 <input type="submit" name="action" value="Register">
                             </div>

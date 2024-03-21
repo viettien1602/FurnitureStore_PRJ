@@ -192,10 +192,6 @@ and open the template in the editor.
         height: 2px;
     }
     
-    form .form-content .input-boxes {
-        margin-top: 30px;
-    }
-    
     form .form-content .input-box {
         height: 50px;
         width: 100%;
